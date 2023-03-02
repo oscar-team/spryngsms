@@ -18,6 +18,10 @@ class SpryngsmsChannel
     {
         $message = $notification->toSpryngsms($notifiable);
 
+        if (is_string($message)) {
+            $message = new SpryngsmsMessage($message);
+        }
+
         if (empty($message->recipients) && method_exists($notifiable, 'routeNotificationForSms')) {
             $message->recipients = [$notifiable->routeNotificationForSms()];
         }

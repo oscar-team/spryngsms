@@ -11,6 +11,5 @@ class SpryngsmsMessage
         public ?string $encoding = null,
         public ?string $route = null,
         public ?string $reference = null,
-    )
-    {}
+    ) {}
 }

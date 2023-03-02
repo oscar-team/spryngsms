@@ -11,7 +11,7 @@ class SpryngsmsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes(
                 [__DIR__ . '/../config/spryngsms.php' => config_path('spryngsms.php')],
-                'config'
+                'spryngsms-config'
             );
         }
     }
