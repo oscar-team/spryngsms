@@ -1,5 +1,5 @@
 {
-    "name": "oscar/spryngsms",
+    "name": "oscar-team/spryngsms",
     "description": "Spryng SMS Notification Channel for Laravel",
     "homepage": "https://github.com/oscar-team/spryngsms",
     "type": "library",
