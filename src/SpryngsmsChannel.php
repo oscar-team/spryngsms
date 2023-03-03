@@ -12,7 +12,7 @@ class SpryngsmsChannel
     ) {}
 
     /**
-     * @throws RequestException
+     * @throws RequestException|Exceptions\CouldNotSendSmsNotification
      */
     public function send($notifiable, Notification $notification): void
     {
