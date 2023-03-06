@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 class SpryngsmsChannel
 {
     public function __construct(
-        private readonly SpryngsmsClient $client
+        private SpryngsmsClient $client
     ) {}
 
     /**
@@ -22,8 +22,8 @@ class SpryngsmsChannel
             $message = new SpryngsmsMessage($message);
         }
 
-        if (empty($message->recipients) && method_exists($notifiable, 'routeNotificationForSms')) {
-            $message->recipients = [$notifiable->routeNotificationForSms()];
+        if (empty($message->recipients) && method_exists($notifiable, 'routeNotificationForSpryngsms')) {
+            $message->recipients = [$notifiable->routeNotificationForSpryngsms()];
         }
 
         if (empty($message->recipients)) {
