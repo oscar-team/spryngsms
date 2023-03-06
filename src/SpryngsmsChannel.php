@@ -9,7 +9,8 @@ class SpryngsmsChannel
 {
     public function __construct(
         private SpryngsmsClient $client
-    ) {}
+    ) {
+    }
 
     /**
      * @throws RequestException|Exceptions\CouldNotSendSmsNotification
@@ -22,12 +23,12 @@ class SpryngsmsChannel
             $message = new SpryngsmsMessage($message);
         }
 
-        if (empty($message->recipients) && method_exists($notifiable, 'routeNotificationForSpryngsms')) {
-            $message->recipients = [$notifiable->routeNotificationForSpryngsms()];
-        }
-
         if (empty($message->recipients)) {
-            return;
+            if (method_exists($notifiable, 'routeNotificationForSpryngsms')) {
+                $message->recipients = [$notifiable->routeNotificationForSpryngsms()];
+            } elseif (method_exists($notifiable, 'routeNotificationForSpryngsmsGroup')) {
+                $message->recipients = $notifiable->routeNotificationForSpryngsmsGroup();
+            }
         }
 
         $this->client->send($message);
