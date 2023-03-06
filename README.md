@@ -7,12 +7,13 @@ This repository provide the the laravel notification channel to send sms via Spr
 composer require oscar-team/spryngsms
 ```
 
-### Publish config file
+You can also publish the config file with:
+
 ```bash
 php artisan vendor:publish --tag=spryngsms-config
 ```
 
-```spryngsms.php``` config file will look like this. You can configure different options here. More info https://docs.spryngsms.com/#9-simple-http-api
+```spryngsms.php``` You can find more info of config options here info https://docs.spryngsms.com/#9-simple-http-api
 
 ```php
 return [
@@ -24,39 +25,57 @@ return [
 ];
 ```
 
-### How to use?
+### Usage?
+
+
+You can use the channel in your ```via()``` method inside the notification:
+
 
 ```php
 use Oscar\Spryngsms\SpryngsmsChannel;
 use Oscar\Spryngsms\SpryngsmsMessage;
 
-public function via(object $notifiable): array
+class BookingNotification extends Notification
 {
-    return [
-      SpryngsmsMessage::class
-    ];
-}
+  public function via(object $notifiable): array
+  {
+      return [
+        SpryngsmsMessage::class
+      ];
+  }
 
-public function toSpryngsms(mixed $notifiable): SpryngsmsMessage|string
-{
-    return new SpryngsmsMessage($message, $recipients, $originator, $encoding, $route, $reference);
+  public function toSpryngsms(mixed $notifiable): SpryngsmsMessage|string
+  {
+      return new SpryngsmsMessage($message, $recipients, $originator, $encoding, $route, $reference);
+  }
 }
 ```
 
-```SpryngsmsMessage::class``` look like this
+Add a `routeNotificationForSpryngsms` method to your Notifiable model to return the phone number:
+
 ```php
-namespace Oscar\Spryngsms;
-
-class SpryngsmsMessage
+public function routeNotificationForSpryngsms(): string
 {
-    public function __construct(
-        public string  $body,
-        public array   $recipients = [],
-        public ?string $originator = null,
-        public ?string $encoding = null,
-        public ?string $route = null,
-        public ?string $reference = null,
-    ) {}
+    return $this->phone_number;
 }
 ```
 
+Or add a `routeNotificationForSpryngsmsGroup` method to return the contacts group:
+
+```php
+public function routeNotificationForSmsapiGroup(): array
+{
+    return $this->contacts_group;
+}
+```
+
+#### ```SpryngsmsMessage::class``` parameters
+* ```$message``` (required)
+* ```$recipients``` (optional)
+* ```$originator``` (optional)
+* ```$encoding``` (optional)
+* ```$reference``` (optional)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
