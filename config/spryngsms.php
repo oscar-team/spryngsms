@@ -27,7 +27,7 @@ return [
     |----------------------------------------------------------------------
     |
     | Your given route to send the message on. Can be a valid route
-    | ID supplied by Spryng or the default business route
+    | ID supplied by Spryng or the default business route.
     |
     */
     'route' => env('SPRYNG_SMS_ROUTE', 'business'),
