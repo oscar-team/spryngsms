@@ -60,15 +60,6 @@ public function routeNotificationForSpryngsms(): string
 }
 ```
 
-Or add a `routeNotificationForSpryngsmsGroup` method to return the contacts group:
-
-```php
-public function routeNotificationForSmsapiGroup(): array
-{
-    return $this->contacts_group;
-}
-```
-
 #### ```SpryngsmsMessage::class``` parameters
 * ```$message``` (required)
 * ```$recipients``` (optional)
