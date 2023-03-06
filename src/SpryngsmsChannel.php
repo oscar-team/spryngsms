@@ -24,7 +24,9 @@ class SpryngsmsChannel
         }
 
         if (empty($message->recipients) && method_exists($notifiable, 'routeNotificationForSpryngsms')) {
-            $message->recipients = [$notifiable->routeNotificationForSpryngsms()];
+            $message->recipients = is_array($notifiable->routeNotificationForSpryngsms())
+                ? $notifiable->routeNotificationForSpryngsms()
+                : [$notifiable->routeNotificationForSpryngsms()];
         }
 
         $this->client->send($message);
