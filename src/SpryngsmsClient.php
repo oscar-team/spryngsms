@@ -5,7 +5,6 @@ namespace Oscar\Spryngsms;
 use Oscar\Spryngsms\Exceptions\CouldNotSendSmsNotification;
 use Spryng\SpryngRestApi\Spryng;
 use Spryng\SpryngRestApi\Objects\Message;
-
 class SpryngsmsClient
 {
     protected Spryng $client;
@@ -20,7 +19,7 @@ class SpryngsmsClient
      */
     public function send(SpryngsmsMessage $spryngsmsMessage): void
     {
-        $message = new Message();
+        $message = app(Message::class);
         $message->setBody($spryngsmsMessage->body);
         $message->setRecipients($spryngsmsMessage->recipients ?? []);
         $message->setOriginator($spryngsmsMessage->originator ?? config('spryngsms.originator'));
@@ -34,4 +33,5 @@ class SpryngsmsClient
         }
     }
 }
+
 
