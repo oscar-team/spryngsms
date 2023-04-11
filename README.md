@@ -114,6 +114,10 @@ public function routeNotificationForSpryngsms(): string
 * ```$encoding``` (optional)
 * ```$reference``` (optional)
 
+## Tests
+
+```phpunit tests```
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
