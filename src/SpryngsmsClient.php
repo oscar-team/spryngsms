@@ -2,6 +2,7 @@
 
 namespace Oscar\Spryngsms;
 
+use Illuminate\Support\Facades\Log;
 use Oscar\Spryngsms\Exceptions\CouldNotSendSmsNotification;
 use Spryng\SpryngRestApi\Spryng;
 use Spryng\SpryngRestApi\Objects\Message;
@@ -29,7 +30,7 @@ class SpryngsmsClient
         $response = $this->client->message->create($message);
 
         if (!$response->wasSuccessful()) {
-            throw new CouldNotSendSmsNotification($response->getRawBody(), $response->getResponseCode());
+            Log::error($response->getRawBody());
         }
     }
 }
