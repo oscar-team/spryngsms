@@ -29,6 +29,10 @@ class SpryngsmsChannel
                 : [$notifiable->routeNotificationForSpryngsms()];
         }
 
+        if (empty(array_filter($message->recipients))) {
+            return;
+        }
+
         $this->client->send($message);
     }
 }
